@@ -1,1 +1,1 @@
-# CMPG-323-IOT-Device-Management
+# CMPG-323-PROJECT-3-32084463
