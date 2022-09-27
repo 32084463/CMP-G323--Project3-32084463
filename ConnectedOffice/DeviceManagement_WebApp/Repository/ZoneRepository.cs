@@ -1,12 +1,10 @@
 ﻿using DeviceManagement_WebApp.Data;
-using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-
-
+using System.Threading.Tasks;
 
 namespace DeviceManagement_WebApp.Repository
 {
@@ -14,10 +12,17 @@ namespace DeviceManagement_WebApp.Repository
     {
         private readonly ConnectedOfficeContext _context = new ConnectedOfficeContext();
 
-         // GET: Zones
-        public List<Zone> GetAll()
+        //Get Zone
+        public IEnumerable<Zone> GetAll()
         {
             return _context.Zone.ToList();
+        }
+        //Get Zone ID
+
+        public async Task<Zone> GetBy(Guid? id)
+        {
+            var zone = await _context.Zone.FirstOrDefaultAsync(m => m.ZoneId == id);
+            return (zone);
         }
 
     }

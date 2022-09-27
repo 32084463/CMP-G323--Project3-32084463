@@ -24,6 +24,11 @@ namespace DeviceManagement_WebApp.Data
         public virtual DbSet<Device> Device { get; set; }
         public virtual DbSet<Zone> Zone { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionaBuilder)
+        {
+            optionaBuilder.UseSqlServer("Password=s3cur3p@ssw0rd;Persist Security Info=True;User ID=cmpg323_sa;Initial Catalog=ConnectedOffice;Data Source=zaazrcmpg323sqlserver.database.windows.net");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>(entity =>

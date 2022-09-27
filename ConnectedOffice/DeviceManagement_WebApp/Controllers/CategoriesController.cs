@@ -1,29 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DeviceManagement_WebApp.Data;
+using DeviceManagement_WebApp.Models;
+using DeviceManagement_WebApp.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using DeviceManagement_WebApp.Data;
-using DeviceManagement_WebApp.Models;
 
 namespace DeviceManagement_WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly ConnectedOfficeContext _context;
+        private readonly ICategory _cateRepository;
+
+        private CategoryRepository _categoryRepository = new CategoryRepository();
 
         public CategoriesController(ConnectedOfficeContext context)
         {
             _context = context;
         }
+        public CategoriesController(ICategory categoryRepository)
+        {
+            _cateRepository = categoryRepository;
+        }
 
-        // GET: Categories
+        // GET: Services
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Category.ToListAsync());
+            return View(_cateRepository.GetAll());
         }
+
+
+        // GET: Categories
+        // public async Task<IActionResult> Index()
+        // {
+        //     var category = _categoryRepository.GetAll();
+        //     return View(category);
+        // }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(Guid? id)
